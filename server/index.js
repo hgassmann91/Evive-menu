@@ -1,11 +1,20 @@
-const express = require("express");
-const app = express();
+const { db } = require('./db');
+const PORT = 8080;
+const app = require('./app');
+const seed = require('../script/seed');
 
-const morgan = require('morgan');
-app.use(morgan('dev'))
+const init = async () => {
+  try {
+    if (process.env.SEED === 'true') {
+      await seed();
+    } else {
+      await db.sync();
+    }
+    // start listening (and create a 'server' object representing our server)
+    app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`));
+  } catch (ex) {
+    console.log(ex);
+  }
+};
 
-app.use(express.static(path.join(__dirname, "../public")));
-
-const bodyParser = require("body-parser");
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+init();
