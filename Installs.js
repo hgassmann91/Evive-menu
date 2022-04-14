@@ -7,4 +7,5 @@
 //npm install --save-dev style-loader css-loader
 // npm install --save morgan
 // npm install --save jsonwebtoken bcrypt
-
+// npm install --save-dev mocha chai
+// npm install --save-dev supertest

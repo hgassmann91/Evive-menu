@@ -8,7 +8,7 @@ module.exports = app;
 app.use(morgan('dev'));
 
 // body parsing middleware
-app.use(express.json());
+app.use(express.text());
 
 // auth and api routes
 app.use('/api', require('./api'));

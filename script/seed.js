@@ -13,91 +13,74 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
 
-  const meals = [
-    {
-      category: 'breakfast',
-    },
-    {
-      category: 'lunch',
-    },
-    {
-      category: 'dinner',
-    },
-  ];
   const menus = [
     {
       itemNumber: 1,
       food: 'Eggs',
       type: 'main',
-      mealId: 1,
+      meal: 'breakfast',
     },
     {
       itemNumber: 2,
       food: 'Toast',
       type: 'side',
-      mealId: 1,
+      meal: 'breakfast',
     },
     {
       itemNumber: 3,
       food: 'Coffee',
       type: 'drink',
-      mealId: 1,
+      meal: 'breakfast',
     },
     {
       itemNumber: 1,
       food: 'Sandwich',
       type: 'main',
-      mealId: 2,
+      meal: 'lunch',
     },
     {
       itemNumber: 2,
       food: 'Chips',
       type: 'side',
-      mealId: 2,
+      meal: 'lunch',
     },
     {
       itemNumber: 3,
       food: 'Soda',
       type: 'drink',
-      mealId: 2,
+      meal: 'lunch',
     },
     {
       itemNumber: 1,
       food: 'Steak',
       type: 'main',
-      mealId: 3,
+      meal: 'dinner',
     },
     {
       itemNumber: 2,
       food: 'Potatoes',
       type: 'side',
-      mealId: 3,
+      meal: 'dinner',
     },
     {
       itemNumber: 3,
       food: 'Wine',
       type: 'drink',
-      mealId: 3,
+      meal: 'dinner',
     },
     {
       itemNumber: 4,
       food: 'Cake',
-      type: 'desert',
-      mealId: 3,
+      type: 'dessert',
+      meal: 'dinner',
     },
     {
       itemNumber: 5,
       food: 'Water',
       type: 'drink',
-      mealId: 3,
+      meal: 'dinner',
     },
   ];
-
-  await Promise.all(
-    meals.map((category) => {
-      return Meal.create(category);
-    })
-  );
 
   await Promise.all(
     menus.map((menu) => {

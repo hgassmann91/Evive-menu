@@ -15,17 +15,20 @@ const Menu = db.define(
       },
     },
     type: {
-      type: DataTypes.ENUM('main', 'side', 'drink', 'desert'),
+      type: DataTypes.ENUM('main', 'side', 'drink', 'dessert'),
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
+    meal: {
+      type: DataTypes.ENUM('breakfast', 'lunch', 'dinner'),
+    },
   },
   {
     uniqueKeys: {
       actions_unique: {
-        fields: ['itemNumber', 'mealId'],
+        fields: ['itemNumber', 'meal'],
       },
     },
     timestamps: false,

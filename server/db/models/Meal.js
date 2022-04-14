@@ -5,7 +5,7 @@ const Meal = db.define(
   'meal',
   {
     category: {
-      type: DataTypes.ENUM('beakfast', 'lunch', 'dinner'),
+      type: DataTypes.ENUM('breakfast', 'lunch', 'dinner'),
     },
   },
   { timestamps: false }
