@@ -30,8 +30,8 @@ Writen in JavaScript.
 
 <!-- start the server / listening on localhost:8080 -->
 
-4. npm run start:dev
+4. npm run start
 
 <!-- run the tests -->
 
-5. npm run test:dev
+5. npm run test
