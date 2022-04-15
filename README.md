@@ -6,11 +6,19 @@ Writen in JavaScript. Insomnia was used to test outside of the test scripts loca
 
 ## Dependencies
 
-- Express
-- postgreSQL
-- Sequelize
-- mocha / chai
-- chai
+- "chai-as-promised": "^7.1.1",
+- "express": "^4.17.3",
+- "morgan": "^1.10.0",
+- "node": "^17.4.0",
+- "pg": "^8.7.3",
+- "pg-hstore": "^2.3.4",
+- "sequelize": "^6.18.0"
+
+## devDependencies
+
+- "chai": "^4.3.6",
+- "mocha": "^9.2.2",
+- "supertest": "^6.2.2"
 
 ## Steps to run files
 
@@ -32,6 +40,6 @@ Writen in JavaScript. Insomnia was used to test outside of the test scripts loca
 
 4. npm run start
 
-<!-- run the tests -->
+<!-- run the tests, tests:dev allows for matching the tests for changes over just using test -->
 
 5. npm run test:dev

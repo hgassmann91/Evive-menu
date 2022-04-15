@@ -18,6 +18,14 @@ const BreakfastOrder = db.define(
         notEmpty: true,
       },
     },
+    sideQty: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     drink: {
       type: DataTypes.TEXT,
       defaultValue: 'water',
