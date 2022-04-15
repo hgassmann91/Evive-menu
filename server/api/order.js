@@ -1,13 +1,10 @@
 const router = require('express').Router();
-const Order = require('../db/models/order');
-const Meal = require('../db/models/meal');
 const Menu = require('../db/models/menu');
 
 router.get('/', async (req, res, next) => {
   try {
     //isolate text from request
     const text = req.body;
-
     //parse text in to the meal the order is for and the items being orded
     let meal =
       text.substring(0, text.indexOf(' ')).toLowerCase() || text.toLowerCase();
@@ -41,7 +38,6 @@ router.get('/', async (req, res, next) => {
         let newItem = await Menu.findOne({
           where: { meal: meal, itemNumber: item },
         });
-        console.log(newItem);
 
         //tests if the numbers ordered are present in the menu database
         if (!newItem) {

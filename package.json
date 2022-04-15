@@ -12,7 +12,7 @@
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "SEED=true npm run start:dev",
     "start-server": "JWT_KEY=shh nodemon server -e html,js,scss --ignore public --ignore client",
-    "test": "NODE_ENV=test JWT=a_secret mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" --require @babel/register --require esm ",
+    "test": "NODE_ENV=test JWT=a_secret mocha \"./tests/**/*.spec.js\"",
     "test:dev": "npm run test -- --watch"
   },
   "keywords": [],
@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "chai-as-promised": "^7.1.1",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
