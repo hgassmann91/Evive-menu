@@ -4,6 +4,8 @@ This application is built as a system that takes orders for breakfast, lunch, an
 
 Writen in JavaScript. Insomnia was used to test outside of the test scripts locally. Requests were sent as plain text to match the inputs in the prompt.
 
+Created as an alternative to the get route, more accurately reflects sending the order to the DB after it has been verified instead of just returned as text
+
 ## Dependencies
 
 - "chai-as-promised": "^7.1.1",

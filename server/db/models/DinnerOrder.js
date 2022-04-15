@@ -28,14 +28,14 @@ const DinnerOrder = db.define(
     },
     drink: {
       type: DataTypes.TEXT,
-    },
-    water: {
-      type: DataTypes.TEXT,
       defaultValue: 'water',
       allowNull: false,
       validate: {
         notEmpty: true,
       },
+    },
+    water: {
+      type: DataTypes.TEXT,
     },
     drinkQty: {
       type: DataTypes.INTEGER,

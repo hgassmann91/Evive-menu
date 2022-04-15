@@ -90,9 +90,9 @@ describe('Order routes', function () {
 
   //Testing for errors associated with breakfast orders
   describe('Breakfast Errors', function () {
-    it('GET responds with an error if only a meal is entered', async () => {
+    it('post responds with an error if only a meal is entered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Breakfast');
       expect(response.status).to.equal(400);
@@ -100,17 +100,17 @@ describe('Order routes', function () {
         'Unable to process: Main is missing, side is missing'
       );
     });
-    it('GET responds with an error if a side is missing', async () => {
+    it('post responds with an error if a side is missing', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Breakfast 1');
       expect(response.status).to.equal(400);
       expect(response.text).to.equal('Unable to process: Side is missing');
     });
-    it('GET responds with an error if multiple mains are entered', async () => {
+    it('post responds with an error if multiple mains are entered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Breakfast 1,1,2,3');
       expect(response.status).to.equal(400);
@@ -122,9 +122,9 @@ describe('Order routes', function () {
 
   //Testing for errors associated with Lunch orders
   describe('Lunch Errors', function () {
-    it('GET responds with an error if only a meal is entered', async () => {
+    it('post responds with an error if only a meal is entered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Lunch');
       expect(response.status).to.equal(400);
@@ -133,17 +133,17 @@ describe('Order routes', function () {
       );
     });
 
-    it('GET responds with an error if a side is missing', async () => {
+    it('post responds with an error if a side is missing', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Lunch 1');
       expect(response.status).to.equal(400);
       expect(response.text).to.equal('Unable to process: Side is missing');
     });
-    it('GET responds with an error if multiple mains are entered', async () => {
+    it('post responds with an error if multiple mains are entered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Lunch 1,1,2,3');
       expect(response.status).to.equal(400);
@@ -155,9 +155,9 @@ describe('Order routes', function () {
 
   //Testing for errors associated with Dinner orders
   describe('Dinner Errors', function () {
-    it('GET responds with an error if only a meal is entered', async () => {
+    it('post responds with an error if only a meal is entered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Dinner');
       expect(response.status).to.equal(400);
@@ -166,17 +166,17 @@ describe('Order routes', function () {
       );
     });
 
-    it('GET responds with an error if a side is missing', async () => {
+    it('post responds with an error if a side is missing', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Dinner 1,3,4');
       expect(response.status).to.equal(400);
       expect(response.text).to.equal('Unable to process: Side is missing');
     });
-    it('GET responds with an error if multiple mains are entered', async () => {
+    it('post responds with an error if multiple mains are entered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Dinner 1,1,2,3,4');
       expect(response.status).to.equal(400);
@@ -184,9 +184,9 @@ describe('Order routes', function () {
         'Unable to process: Steak cannot be ordered more than once'
       );
     });
-    it('GET responds with an error if no dessert is ordered', async () => {
+    it('post responds with an error if no dessert is ordered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Dinner 1,2,3');
       expect(response.status).to.equal(400);
@@ -196,84 +196,84 @@ describe('Order routes', function () {
 
   //Testing for expected output of correct breakfast orders
   describe('Breakfast Passing Tests', function () {
-    it('GET responds with ordered foods', async () => {
+    it('post responds with ordered foods', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Breakfast 1,2,3');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Eggs, Toast, Coffee');
     });
-    it('GET responds with multiple coffees if ordered', async () => {
+    it('post responds with multiple coffees if ordered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Breakfast 1,2,3,3,3');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Eggs, Toast, Coffee(3)');
     });
-    it('GET responds with with multiple sides if ordered', async () => {
+    it('post responds with with multiple sides if ordered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Breakfast 1,2,2,3');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Eggs, Toast(2), Coffee');
     });
   });
 
   //Testing for expected output of correct Lunch orders
   describe('Lunch Passing Tests', function () {
-    it('GET responds with ordered foods', async () => {
+    it('post responds with ordered foods', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Lunch 1,2,3');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Sandwich, Chips, Soda');
     });
-    it('GET responds adds water if no drink is ordered', async () => {
+    it('post responds adds water if no drink is ordered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Lunch 1,2');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Sandwich, Chips, Water');
     });
-    it('GET responds with with multiple sides if ordered', async () => {
+    it('post responds with with multiple sides if ordered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Lunch 1,2,2,3');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Sandwich, Chips(2), Soda');
     });
   });
 
   //Testing for expected output of correct Dinner orders
   describe('Dinner Passing Tests', function () {
-    it('GET responds with ordered foods + water if not expressly ordered', async () => {
+    it('post responds with ordered foods + water if not expressly ordered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Dinner 1,2,3,4');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Steak, Potatoes, Wine, Water, Cake');
     });
-    it('GET responds adds water if no drink is ordered', async () => {
+    it('post responds adds water if no drink is ordered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Dinner 1,2,4');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Steak, Potatoes, Water, Cake');
     });
-    it('GET responds with with multiple sides if ordered', async () => {
+    it('post responds with with multiple sides if ordered', async () => {
       const response = await app
-        .get('/api/order')
+        .post('/api/order')
         .set({ 'Content-Type': 'text/plain' })
         .send('Dinner 1,2,2,3,4');
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(201);
       expect(response.text).to.equal('Steak, Potatoes(2), Wine, Water, Cake');
     });
   });

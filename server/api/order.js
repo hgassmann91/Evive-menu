@@ -1,7 +1,11 @@
 const router = require('express').Router();
-const Menu = require('../db/models/menu');
+// const Menu = require('../db/models/menu');
+const {
+  db,
+  models: { Menu, BreakfastOrder, LunchOrder, DinnerOrder },
+} = require('../db');
 
-router.get('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     //isolate text from request
     const text = req.body;
@@ -126,8 +130,6 @@ router.get('/', async (req, res, next) => {
             ? errors.push(`an unknown item was ordered`)
             : errors.push(`Unable to process: An unknown item was ordered`);
         }
-
-        console.log(errors.join(', '));
       }
       return errors;
     };
@@ -168,12 +170,61 @@ router.get('/', async (req, res, next) => {
       return orderText;
     };
 
+    const postOrder = async () => {
+      const main = [orderTesting.get('main').food];
+      const mainText = `${main[0]}`;
+      const side = [
+        orderTesting.get('side').food,
+        orderTesting.get('side').qty,
+      ];
+      const sideText = `${side[0]}`;
+      const sideQty = `${side[1]}`;
+      const drink = orderTesting.get('drink')
+        ? [orderTesting.get('drink').food, orderTesting.get('drink').qty]
+        : ['Water', 1];
+      let drinkText = `${drink[0]}`;
+      let drinkQty = `${drink[1]}`;
+      const orderObj = {
+        main: mainText,
+        side: sideText,
+        sideQty: sideQty,
+        drink: drinkText,
+        drinkQty: drinkQty,
+      };
+
+      if (meal === 'breakfast') {
+        let breakfastOrder = await BreakfastOrder.create(orderObj);
+      } else if (meal === 'lunch') {
+        try {
+          let lunchOrder = await LunchOrder.create(orderObj);
+        } catch (err) {
+          next(err);
+        }
+      } else if (meal === 'dinner') {
+        try {
+          let dessert = [
+            orderTesting.get('dessert').food,
+            orderTesting.get('dessert').qty,
+          ];
+          let dessertText = `${dessert[0]}`;
+          orderObj.dessert = dessertText;
+          if (!drinkText.includes('Water')) {
+            orderObj.water = 'Water';
+          }
+          let dinnerOrder = await DinnerOrder.create(orderObj);
+        } catch (err) {
+          next(err);
+        }
+      }
+    };
+
     if (errors.length) {
       res.status(400).send(`${errors}`);
     } else {
       let orderText = formulateOrder();
+      let orderObj = await postOrder();
 
-      res.send(`${orderText}`);
+      res.status(201).send(orderText);
     }
   } catch (error) {
     console.error('Cannot process request, unidentified error detected');
