@@ -2,7 +2,7 @@
 
 This application is built as a system that takes orders for breakfast, lunch, and dinner.
 
-Writen in JavaScript.
+Writen in JavaScript. Insomnia was used to test outside of the test scripts locally. Requests were sent as plain text to match the inputs in the prompt.
 
 ## Dependencies
 
@@ -34,4 +34,4 @@ Writen in JavaScript.
 
 <!-- run the tests -->
 
-5. npm run test
+5. npm run test:dev
